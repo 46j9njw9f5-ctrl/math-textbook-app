@@ -1,0 +1,40 @@
+name: Lesson Feedback
+description: 教材説明の改善や追加要望を送る
+title: "[Lesson] "
+labels:
+  - lesson
+body:
+  - type: input
+    id: unit
+    attributes:
+      label: 単元
+      placeholder: 例: 二次関数
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: ページ
+      placeholder: 例: 平方完成
+    validations:
+      required: true
+  - type: dropdown
+    id: problem_type
+    attributes:
+      label: 困っていること
+      options:
+        - 公式の意味が分からない
+        - 使いどころが分からない
+        - 式変形が追えない
+        - 図と式がつながらない
+        - 問題で使えない
+        - なぜその解法になるか分からない
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: 詳細
+      placeholder: どの説明が足りないか、どの例題を増やしたいかを書いてください
+    validations:
+      required: true
