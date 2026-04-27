@@ -39,27 +39,35 @@ npm run dev
 
 ## GitHub に載せる
 
-1. GitHub で新しいリポジトリを作る
-2. このフォルダをそのリポジトリに push する
-3. GitHub Actions を有効にする
-4. `Settings > Pages` で `GitHub Actions` を公開元にする
+1. このフォルダを GitHub に push する
+2. `npm run build:docs` で `docs/` を生成する
+3. `docs/.nojekyll` があることを確認する
+4. `docs/` を commit して push する
+5. GitHub の `Settings > Pages` で次を選ぶ
+   - Source: `Deploy from a branch`
+   - Branch: `main`
+   - Folder: `/docs`
 
-入っているもの:
+この方式は GitHub Actions を使わないので、Actions の制限に引っかかりません。
 
-- `.github/workflows/ci.yml`
-  - push / pull request で lint と build を実行
-- `.github/workflows/deploy-pages.yml`
-  - main または master に push すると GitHub Pages へ配備
-- `.github/ISSUE_TEMPLATE/lesson-feedback.yml`
-  - 教材改善依頼を整理して受けるテンプレート
-- `.github/pull_request_template.md`
-  - 教材更新時の確認漏れを減らすテンプレート
+## 公開更新を楽にする
+
+```powershell
+.\publish-docs.ps1
+```
+
+これで次をまとめて実行します。
+
+- `npm run build:docs`
+- `docs/.nojekyll` を作成
+- `docs/` を commit
+- `git push`
 
 ## どこでも使う方法
 
 ### 1. GitHub Pages
 
-静的サイトとして公開できます。いちばん手軽です。
+`main` ブランチの `docs/` をそのまま公開します。
 
 ### 2. Docker
 
@@ -72,18 +80,23 @@ docker run -p 8080:80 math-textbook-app
 
 ### 3. 静的ホスティング
 
-`dist` をそのまま配布できます。
+`dist` または `docs` をそのまま配布できます。
 
 ```bash
 npm run build
 ```
 
-`dist/` を Netlify, Vercel, Cloudflare Pages, S3 などに配置できます。
+または
+
+```bash
+npm run build:docs
+```
 
 ## 開発コマンド
 
 ```bash
 npm run dev
 npm run build
+npm run build:docs
 npm run lint
 ```
